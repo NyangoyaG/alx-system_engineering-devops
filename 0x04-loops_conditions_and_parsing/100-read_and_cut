@@ -1,0 +1,7 @@
+#!/bin/bash
+
+while IFS=: read -r user pass uid gid gecos home shell; do
+    echo "Username: $user"
+    echo "User ID: $uid"
+    echo "Home Directory: $home"
+done < /etc/passwd
