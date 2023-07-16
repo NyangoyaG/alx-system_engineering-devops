@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-sed -e 's/[&%\\]/\\&/g' \
-    -e '$!s/$/\\/' \
-    -e '1s/^/s%string_to_replace%/' \
-     -e '$s/$/%g/' <<<$replacement |
-# pass to second sed instance
-sed -f - "$file"
+#Configure a new Nginx server so that /redirect_me is redirecting to another page
+
+sudo apt-get -y update
+sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
+echo "Hello World" | sudo tee /var/www/html/index
+sudo sed -i '/listen 80 default_server/a rewrite ^/redirect_me https://www.youtube.com/ permanent;' /etc/nginx/sites-available/default
+sudo service nginx restart
