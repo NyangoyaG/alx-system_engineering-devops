@@ -1,0 +1,7 @@
+iptables --version
+sudo apt update
+sudo apt install iptables
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
+sudo apt install iptables-persistent
+sudo netfilter-persistent save
+sudo service iptables save
