@@ -1,0 +1,17 @@
+server {
+    listen 80;
+    server_name _;
+
+    location / {
+        proxy_pass http://127.0.0.1:5003;  # Proxy to the Gunicorn instance on port 5003
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /static/ {
+        alias /root/alx-system_engineering-devops/0x1A-application_server/web_dynamic/static/;
+        expires 30d;  # Cache static assets for 30 days
+    }
+}
